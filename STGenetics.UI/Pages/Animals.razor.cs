@@ -244,11 +244,9 @@ namespace STGenetics.UI.Pages
         {
             if (string.IsNullOrWhiteSpace(searchString))
                 return true;
-            if (element.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            if ($" {element.Name} {element.Breed} {element.Price} {element.Sex} {element.Status}".Contains(searchString))
                 return true;
-            if (element.Breed.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-                return true;
-            if ($"{element.BirthDate} {element.Price} {element.Sex}".Contains(searchString))
+            if (element.BirthDate.ToString("MM/dd/yyyy").Contains(searchString, StringComparison.OrdinalIgnoreCase))
                 return true;
             return false;
         }
