@@ -1,0 +1,40 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider IsDarkMode="true" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout Style="min-height:100vh;">
+    <MudAppBar Elevation="1">
+        <MudTooltip Text=@_toolTipMenu Style="margin:inherit">
+            <MudFab Color="Color.Tertiary"
+                    Style="margin:inherit"
+                    StartIcon="@_iconMenu"
+                    OnClick="@((e) => DrawerToggle())" />
+        </MudTooltip>
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen" Elevation="1">
+        <MudDrawerHeader class="mud-card-header" style="background-color: #00000089; padding: 0;">
+            <MudText Typo="Typo.h6"
+                     style="padding-left: 10%; font-weight: bold; color: white;">
+                STGeneticts
+            </MudText>
+        </MudDrawerHeader>
+        <NavMenu />
+    </MudDrawer>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = true;
+    string _iconMenu = Icons.Material.Filled.MenuOpen;
+    string _toolTipMenu = "Hide Menu";
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+        _iconMenu = _drawerOpen ? Icons.Material.Filled.MenuOpen : Icons.Material.Filled.Menu;
+        _toolTipMenu = _drawerOpen ? "Hide menu" : "Show menu";
+    }
+}

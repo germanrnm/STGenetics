@@ -1,0 +1,290 @@
+﻿@page "/animals"
+@inject ISnackbar SnackbarService
+@inject IDialogService DialogService
+
+<MudContainer Class="my-4" MaxWidth="MaxWidth.ExtraExtraLarge">
+    <MudStack>
+        <MudTable Items="@AnimalsResponse" Elevation="5" CommitEditTooltip="Save Changes"
+                  Dense="true" CanCancelEdit="true"
+                  OnCommitEditClick="@(e => UpdateAnimal())"
+                  RowEditPreview="BackupItem" RowEditCancel="ResetItemToOriginalValues"
+                  IsEditRowSwitchingBlocked="false"
+                  ApplyButtonPosition="TableApplyButtonPosition.End"
+                  SortLabel="Sort By"
+                  EditTrigger="TableEditTrigger.RowClick"
+                  Filter="new Func<GetAnimalResponse,bool>(FilterFunc1)">
+            <ToolBarContent>
+                <MudGrid Class="align-center" Spacing="1" Justify="Justify.FlexStart">
+                    <MudItem>
+                        <MudIcon Icon="fa-solid fa-cow fa-2x" />
+                    </MudItem>
+                    <MudItem>
+                        <MudText Typo="Typo.subtitle2">
+                            Animals management
+                        </MudText>
+                    </MudItem>
+                </MudGrid>
+                <MudGrid Class="align-center" Spacing="1" Justify="Justify.FlexEnd">
+                    <MudTextField @bind-Value="searchString1" Placeholder="Type the word to filter and press enter" Adornment="Adornment.Start"
+                                    AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                </MudGrid>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh/>
+                <MudTh><MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Breed)">Breed</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.BirthDate)">Birth Date (MM/dd/yyyy)</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Sex)">Sex</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Price)">Price</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Status)">Status</MudTableSortLabel></MudTh>
+                <MudTh>
+                    <MudTooltip Text="Add animal">
+                        <MudIconButton Icon="@Icons.Material.Filled.AddCircle"
+                                       Size="@Size.Small"
+                                       Color="Color.Tertiary"
+                                       OnClick="@(e => EditForm(0))" />
+                    </MudTooltip>
+
+                </MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>
+                    @if (context.Selected)
+                    {
+                        <MudTooltip Text="Remove from shopping cart">
+                            <MudIconButton Icon="@Icons.Material.Filled.RadioButtonChecked"
+                                       Size="@Size.Small"
+                                       Color="Color.Tertiary"
+                                       OnClick="@(e => ChekedChange(context.Id, false))" />
+                        </MudTooltip>
+                    
+                    }
+                    else
+                    {
+                        <MudTooltip Text="Add to shopping cart">
+                            <MudIconButton Icon="@Icons.Material.Outlined.RadioButtonUnchecked"
+                                       Size="@Size.Small"
+                                       Color="Color.Tertiary"
+                                       OnClick="@(e => ChekedChange(context.Id, true))" />
+                        </MudTooltip>
+                    }
+                </MudTd>
+                <MudTd DataLabel="Name">@context.Name</MudTd>
+                <MudTd DataLabel="Breed">@context.Breed</MudTd>
+                <MudTd DataLabel="Birth Date">@context.BirthDate.ToString("MM/dd/yyyy")</MudTd>
+                <MudTd DataLabel="Sex">@context.Sex</MudTd>
+                <MudTd DataLabel="Price">@(context.Price.ToString("C2"))
+                </MudTd>
+                <MudTd DataLabel="Status">@context.Status</MudTd>
+                <MudTd>
+                    <MudTooltip Text="Delete animal">
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                Size="@Size.Small"
+                                Color="Color.Tertiary"
+                                OnClick="@(e => DeleteAnimal(context.Id))" />
+                    </MudTooltip>                    
+                </MudTd>
+            </RowTemplate>
+            <RowEditingTemplate>
+                <MudTd DataLabel="Name">
+                    <MudTextField Required
+                                    @bind-Value="@context.Name"
+                                    RequiredError="The Name field is required." />
+                </MudTd>
+                <MudTd DataLabel="Breed">
+                    <MudTextField Required
+                                    @bind-Value="@context.Breed"
+                                    RequiredError="The Breed field is required." />
+                </MudTd>
+                <MudTd DataLabel="Birth Date">
+                    <MudDatePicker Required
+                                    DisableToolbar="true"
+                                    RequiredError="The Birth Date field is required."
+                                    Label="MM/dd/yyyy"
+                                    Editable="false"
+                                    Date="@context.BirthDate.Date"
+                                    DateChanged="@(d => this.DateChanged(d.Value, context))"
+                                    Mask="@(new DateMask("MM/dd/yyyy"))"
+                                    DateFormat="MM/dd/yyyy">
+                    </MudDatePicker>
+                </MudTd>
+                <MudTd DataLabel="Sex">
+                    <MudSelect Required
+                                Style="min-width:85px"
+                                RequiredError="The Sex field is required."
+                                AnchorOrigin="Origin.BottomCenter"
+                                @bind-Value="@context.Sex">
+                        <MudSelectItem Value="@("Male")">Male</MudSelectItem>
+                        <MudSelectItem Value="@("Female")">Female</MudSelectItem>
+                    </MudSelect>
+                </MudTd>
+                <MudTd DataLabel="Price">
+                    <MudNumericField Required
+                                     HideSpinButtons="true"
+                                     Format="N2"
+                                     @bind-Value="@context.Price"
+                                     RequiredError="The Price field is required." />
+                </MudTd>
+                <MudTd DataLabel="Status">
+                    <MudSelect Required
+                                Style="min-width:85px"
+                                RequiredError="The Status field is required."
+                                AnchorOrigin="Origin.BottomCenter"
+                                @bind-Value="@context.Status">
+                        <MudSelectItem Value="@("Active")">Active</MudSelectItem>
+                        <MudSelectItem Value="@("Inactive")">Inactive</MudSelectItem>
+                    </MudSelect>
+                </MudTd>
+            </RowEditingTemplate>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new int[]{10}" />
+            </PagerContent>
+        </MudTable>
+                <MudTable Items="@SelectedItems" Elevation="5" GroupBy="@_groupDefinition">
+            <ToolBarContent>
+                <MudGrid Class="align-center" Spacing="1" Justify="Justify.FlexStart">
+                <MudItem>
+                    <MudIcon Icon="fa-solid fa-cart-shopping fa-2x" Style="margin:1%" />
+                </MudItem>
+                <MudItem>
+                    <MudText Align="Align.Center"
+                                Typo="Typo.h6"
+                                                style="color: white; font-weight: bold;">
+                            Shopping cart
+                    </MudText>
+                </MudItem>
+                </MudGrid>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Name</MudTh>
+                <MudTh>Breed</MudTh>
+                <MudTh>Birth Date (MM/dd/yyyy)</MudTh>
+                <MudTh>Sex</MudTh>
+                <MudTh>Price</MudTh>
+                <MudTh>Discount</MudTh>
+                <MudTh>Final Price</MudTh>
+                <MudTh>Status</MudTh>
+            </HeaderContent>
+            <GroupHeaderTemplate>
+                <MudTh Class="mud-table-cell-custom-group" colspan="5">@($"{context.GroupName}: {context.Key}")</MudTh>
+            </GroupHeaderTemplate>
+            <RowTemplate>
+                <MudTd DataLabel="Name">@context.Name</MudTd>
+                <MudTd DataLabel="Breed">@context.Breed</MudTd>
+                <MudTd DataLabel="Birth Date">@context.BirthDate.ToString("MM/dd/yyyy")</MudTd>
+                <MudTd DataLabel="Sex">@context.Sex</MudTd>
+                <MudTd DataLabel="Price">@(context.Price.ToString("C2"))</MudTd>
+                <MudTd DataLabel="Discount">@(context.Discount.ToString("C2"))</MudTd>
+                <MudTd DataLabel="Final Price">@(context.FinalPrice.ToString("C2"))</MudTd>
+                <MudTd DataLabel="Status">@context.Status</MudTd>
+            </RowTemplate>
+            <FooterContent>
+                <MudTd colspan="3"/>
+                <MudTd>
+                    <MudText Typo="Typo.h6"> Subtotal: </MudText>
+                </MudTd>
+                <MudTd>@(TotalBeforeDiscount.ToString("C2"))</MudTd>
+                <MudTd>@(TotalParticularDiscount.ToString("C2"))</MudTd>
+                <MudTd>@(TotalAfterParticularDiscount.ToString("C2"))</MudTd>         
+            </FooterContent>            
+        </MudTable>
+        <MudGrid  Spacing="1" Justify="Justify.FlexEnd">
+            <MudCard Elevation="5">
+                <MudCardHeader>
+                    <MudText Typo="Typo.h6"> Totals</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid  Spacing="2" Justify="Justify.FlexEnd">
+                        <MudItem >
+                            <MudStack>
+                                    <MudText>Aditional Discount (+10 Animals):</MudText>
+                                    <MudText>Total Discounts:</MudText>
+                                    <MudText>Total With Discounts:</MudText>
+                                    <MudText>Shipping:</MudText>
+                                    <MudText>Total Order:</MudText>
+                            </MudStack>
+                        </MudItem>
+                        <MudItem>
+                            <MudStack>
+                                <MudText>@(TotalGeneralDiscount.ToString("C2"))</MudText>
+                                <MudText>@(TotalDiscounts.ToString("C2"))</MudText>
+                                <MudText>@(TotalAfterGeneralDiscount.ToString("C2"))</MudText>
+                                <MudText>@(Freight.ToString("C2"))</MudText>
+                                <MudText>@(Total.ToString("C2"))</MudText>
+                            </MudStack>
+                        </MudItem>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+        </MudGrid>
+    </MudStack>
+    <MudOverlay Visible="isVisible" DarkBackground="true">
+    <MudGrid Class="align-start">
+    <EditForm Model="@AnimalModel" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <MudCard>
+            <MudCardContent>
+                <MudGrid Spacing="2">
+                    <MudItem>
+                        <MudTextField Label="Name"
+                                        @bind-Value="AnimalModel.Name"
+                                        For="@(() => AnimalModel.Name)" />
+                        <MudTextField Label="Breed"
+                                        @bind-Value="AnimalModel.Breed"
+                                        For="@(() => AnimalModel.Breed)" />
+                        <MudDatePicker DisableToolbar="true"
+                                        For="@(() => AnimalModel.BirthDate)"
+                                        Label="Birth Date"
+                                        @bind-Date="AnimalModel.BirthDate" />
+                    </MudItem>
+                    <MudItem>
+                        <MudSelect @bind-Value="AnimalModel.Sex"
+                                    Placeholder="Please select a sex"
+                                    AdornmentIcon="fa-solid fa-venus-mars"
+                                    For="@(() => AnimalModel.Sex)"
+                                    AdornmentColor="Color.Primary">
+                            <MudSelectItem Value="@("Male")">Male</MudSelectItem>
+                            <MudSelectItem Value="@("Female")">Female</MudSelectItem>
+
+                        </MudSelect>
+                        <MudNumericField Immediate="false"
+                                            Format="N2"
+                                            Culture="@_en"
+                                            T="decimal"
+                                            @bind-Value="AnimalModel.Price"
+                                            For="@(() => AnimalModel.Price)"
+                                            HideSpinButtons="true" />
+                        <MudSelect @bind-Value="AnimalModel.Status"
+                                    Placeholder="Please select a status"
+                                    AdornmentIcon="@Icons.Material.Filled.ToggleOn"
+                                    For="@(() => AnimalModel.Status)"
+                                    AdornmentColor="Color.Primary">
+
+                            <MudSelectItem Value="@("Active")">Active</MudSelectItem>
+                            <MudSelectItem Value="@("Inactive")">Inactive</MudSelectItem>
+                        </MudSelect>
+                    </MudItem>
+                </MudGrid>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton ButtonType="ButtonType.Submit"
+                            Variant="Variant.Outlined"
+                            StartIcon="@Icons.Material.Filled.Save"
+                            Color="Color.Success"
+                            Class="ml-auto">
+                    Save
+                </MudButton>
+                <MudButton ButtonType="ButtonType.Button"
+                            Variant="Variant.Outlined"
+                            StartIcon="@Icons.Material.Filled.Cancel"
+                            Color="Color.Error"
+                            OnClick="@(e => CloseEditForm())"
+                            Class="ml-auto">
+                    Cancel
+                </MudButton>
+            </MudCardActions>
+        </MudCard>
+    </EditForm>
+    </MudGrid>
+    </MudOverlay>
+</MudContainer>

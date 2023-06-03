@@ -1,0 +1,220 @@
+{
+  "animal": [
+    {
+      "id": 1,
+      "name": "Homer",
+      "breed": "Angus",
+      "birthDate": "2023-06-02T15:46:05",
+      "sex": "Male",
+      "price": 180.0,
+      "status": "Active"
+    },
+    {
+      "id": 2,
+      "name": "Bella",
+      "breed": "Holstein",
+      "birthDate": "2023-06-01T15:49:31.6064474-05:00",
+      "sex": "Female",
+      "price": 160.0,
+      "status": "Active"
+    },
+    {
+      "id": 3,
+      "name": "Bully",
+      "breed": "Brahman",
+      "birthDate": "2023-06-01T15:51:24.077161-05:00",
+      "sex": "Male",
+      "price": 170.0,
+      "status": "Active"
+    },
+    {
+      "id": 4,
+      "name": "Duke",
+      "breed": "Beffmaster",
+      "birthDate": "2023-06-01T15:46:05.9271772-05:00",
+      "sex": "Male",
+      "price": 180.0,
+      "status": "Active"
+    },
+    {
+      "id": 5,
+      "name": "Darla",
+      "breed": "Maine-Anjou",
+      "birthDate": "2023-06-01T15:49:31.6064474-05:00",
+      "sex": "Female",
+      "price": 160.0,
+      "status": "Active"
+    },
+    {
+      "id": 6,
+      "name": "Armor",
+      "breed": "Brangus",
+      "birthDate": "2023-06-01T15:51:24.077161-05:00",
+      "sex": "Male",
+      "price": 190.0,
+      "status": "Active"
+    },
+    {
+      "id": 7,
+      "name": "Horns",
+      "breed": "Texas Longhorn",
+      "birthDate": "2023-06-01T15:46:05.9271772-05:00",
+      "sex": "Male",
+      "price": 180.0,
+      "status": "Active"
+    },
+    {
+      "id": 8,
+      "name": "Shelly",
+      "breed": "Holstein",
+      "birthDate": "2023-06-01T15:49:31.6064474-05:00",
+      "sex": "Female",
+      "price": 160.0,
+      "status": "Active"
+    },
+    {
+      "id": 9,
+      "name": "Moscow",
+      "breed": "Brahman",
+      "birthDate": "2023-06-01T15:51:24.077161-05:00",
+      "sex": "Male",
+      "price": 170.0,
+      "status": "Active"
+    },
+    {
+      "id": 10,
+      "name": "Bob",
+      "breed": "Limousin",
+      "birthDate": "2023-06-01T15:46:05.9271772-05:00",
+      "sex": "Male",
+      "price": 180.0,
+      "status": "Active"
+    },
+    {
+      "id": 11,
+      "name": "Maggie",
+      "breed": "Maine-Anjou",
+      "birthDate": "2023-06-01T15:49:31.6064474-05:00",
+      "sex": "Female",
+      "price": 160.0,
+      "status": "Active"
+    },
+    {
+      "id": 12,
+      "name": "Diesel",
+      "breed": "Salers",
+      "birthDate": "2023-06-01T15:51:24.077161-05:00",
+      "sex": "Male",
+      "price": 190.0,
+      "status": "Active"
+    },
+    {
+      "id": 13,
+      "name": "Tank",
+      "breed": "Angus",
+      "birthDate": "2023-06-01T15:46:05.9271772-05:00",
+      "sex": "Male",
+      "price": 150.0,
+      "status": "Active"
+    },
+    {
+      "id": 14,
+      "name": "Jasmine",
+      "breed": "Holstein",
+      "birthDate": "2023-06-01T15:49:31.6064474-05:00",
+      "sex": "Female",
+      "price": 160.0,
+      "status": "Active"
+    },
+    {
+      "id": 15,
+      "name": "Kristof",
+      "breed": "Brahman",
+      "birthDate": "2023-06-01T15:51:24.077161-05:00",
+      "sex": "Male",
+      "price": 170.0,
+      "status": "Active"
+    },
+    {
+      "id": 16,
+      "name": "Hydro",
+      "breed": "Beffmaster",
+      "birthDate": "2023-06-01T15:46:05.9271772-05:00",
+      "sex": "Male",
+      "price": 180.0,
+      "status": "Active"
+    },
+    {
+      "id": 17,
+      "name": "Minnie",
+      "breed": "Maine-Anjou",
+      "birthDate": "2023-06-01T15:49:31.6064474-05:00",
+      "sex": "Female",
+      "price": 160.0,
+      "status": "Active"
+    },
+    {
+      "id": 18,
+      "name": "Midnight",
+      "breed": "Brangus",
+      "birthDate": "2023-06-01T15:51:24.077161-05:00",
+      "sex": "Male",
+      "price": 190.0,
+      "status": "Active"
+    },
+    {
+      "id": 19,
+      "name": "Sampson",
+      "breed": "Texas Longhorn",
+      "birthDate": "2023-06-01T15:46:05.9271772-05:00",
+      "sex": "Male",
+      "price": 180.0,
+      "status": "Active"
+    },
+    {
+      "id": 20,
+      "name": "Rose",
+      "breed": "Holstein",
+      "birthDate": "2023-06-01T15:49:31.6064474-05:00",
+      "sex": "Female",
+      "price": 160.0,
+      "status": "Active"
+    },
+    {
+      "id": 21,
+      "name": "Pinky",
+      "breed": "Brahman",
+      "birthDate": "2023-06-01T15:51:24.077161-05:00",
+      "sex": "Male",
+      "price": 170.0,
+      "status": "Active"
+    },
+    {
+      "id": 22,
+      "name": "Nitrous",
+      "breed": "Limousin",
+      "birthDate": "2023-06-01T15:46:05.9271772-05:00",
+      "sex": "Male",
+      "price": 180.0,
+      "status": "Active"
+    },
+    {
+      "id": 23,
+      "name": "Lois",
+      "breed": "Maine-Anjou",
+      "birthDate": "2023-06-01T15:49:31.6064474-05:00",
+      "sex": "Female",
+      "price": 160.0,
+      "status": "Active"
+    },
+    {
+      "id": 24,
+      "name": "Sunny",
+      "breed": "Salers",
+      "birthDate": "2023-06-01T15:51:24.077161-05:00",
+      "sex": "Male",
+      "price": 190.0,
+      "status": "Active"
+    }
+  ]
+}
