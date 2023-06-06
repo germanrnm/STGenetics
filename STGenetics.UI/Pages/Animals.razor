@@ -31,20 +31,33 @@
             </ToolBarContent>
             <HeaderContent>
                 <MudTh/>
-                <MudTh><MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Breed)">Breed</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.BirthDate)">Birth Date (MM/dd/yyyy)</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Sex)">Sex</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Price)">Price</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Status)">Status</MudTableSortLabel></MudTh>
+                <MudTh edita>
+                    <MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Name)">Name</MudTableSortLabel>
+                </MudTh>
+                <MudTh>
+                    <MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Breed)">Breed</MudTableSortLabel>
+                </MudTh>
+                <MudTh>
+                    <MudTooltip Text="MM/dd/yyyy">
+                        <MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.BirthDate)">Birth Date</MudTableSortLabel>
+                    </MudTooltip>
+                </MudTh>
+                <MudTh>
+                    <MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Sex)">Sex</MudTableSortLabel>
+                </MudTh>
+                <MudTh>
+                    <MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Price)">Price</MudTableSortLabel>
+                </MudTh>
+                <MudTh>
+                    <MudTableSortLabel SortBy="new Func<GetAnimalResponse, object>(x=>x.Status)">Status</MudTableSortLabel>
+                </MudTh>
                 <MudTh>
                     <MudTooltip Text="Add animal">
                         <MudIconButton Icon="@Icons.Material.Filled.AddCircle"
-                                       Size="@Size.Small"
-                                       Color="Color.Tertiary"
-                                       OnClick="@(e => EditForm(0))" />
+                                        Size="@Size.Small"
+                                        Color="Color.Tertiary"
+                                        OnClick="@(e => EditForm(0))" />
                     </MudTooltip>
-
                 </MudTh>
             </HeaderContent>
             <RowTemplate>

@@ -19,8 +19,8 @@ namespace STGenetics.UI.Pages
     public partial class Animals
     {
         private bool isVisible;
-        private GetAnimalResponse AnimalResponse;
-        private GetAnimalResponse ElementBeforeEdit;
+        private GetAnimalResponse AnimalResponse = null!;
+        private GetAnimalResponse ElementBeforeEdit = null!;
         private decimal TotalBeforeDiscount = 0;
         private decimal TotalAfterParticularDiscount = 0;
         private decimal TotalAfterGeneralDiscount = 0;
@@ -110,7 +110,8 @@ namespace STGenetics.UI.Pages
 
             var dialogresult = DialogService.Show<CustomDialog>("Delete", parameters, options);
             var res = await dialogresult.Result;
-            if (!res.Cancelled && bool.TryParse(res.Data.ToString(), out bool resultbool))
+            if (!res.Canceled
+                && bool.TryParse(res.Data.ToString(), out bool resultbool))
             {
                 var command = new DeleteAnimalCommand(id);
                 var result = await Mediator.Send(command);
@@ -244,7 +245,7 @@ namespace STGenetics.UI.Pages
         {
             if (string.IsNullOrWhiteSpace(searchString))
                 return true;
-            if ($" {element.Name} {element.Breed} {element.Price} {element.Sex} {element.Status}".Contains(searchString))
+            if ($" {element.Name} {element.Breed} {element.Price} {element.Sex} {element.Status}".Contains(searchString, StringComparison.OrdinalIgnoreCase))
                 return true;
             if (element.BirthDate.ToString("MM/dd/yyyy").Contains(searchString, StringComparison.OrdinalIgnoreCase))
                 return true;

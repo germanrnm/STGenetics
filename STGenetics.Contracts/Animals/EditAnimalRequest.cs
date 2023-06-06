@@ -15,5 +15,5 @@ public class EditAnimalRequest {
     [Required]
     public decimal Price { get; set; }
     [Required]
-    public string Status { get; set; }
+    public string Status { get; set; } = null!;
 }
